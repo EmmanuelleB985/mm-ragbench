@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mm-ragbench"
+version = "0.1.0"
+description = "Multimodal RAG benchmark dataset — companion to mmeval-vrag"
+readme = "README.md"
+license = {text = "Apache-2.0"}
+requires-python = ">=3.10"
+authors = [
+    {name = "Emmanuelle Bourigault", email = "bourigaulte98@gmail.com"},
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+keywords = ["rag", "multimodal", "benchmark", "evaluation", "hallucination", "mmeval-vrag"]
+
+dependencies = [
+    "mmeval-vrag>=0.1.0",
+    "datasets>=2.18.0",
+    "tqdm>=4.66.0",
+]
+
+[project.optional-dependencies]
+build = [
+    "anthropic>=0.30.0",
+    "openai>=1.30.0",
+    "Pillow>=10.0.0",
+]
+dev = [
+    "pytest>=7.0.0",
+    "ruff>=0.1.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/EmmanuelleB985/mm-ragbench"
+Repository = "https://github.com/EmmanuelleB985/mm-ragbench"
+"mmeval-vrag" = "https://github.com/EmmanuelleB985/mmeval-vrag"
+Dataset = "https://huggingface.co/datasets/EmmanuelleB985/mm-ragbench"
+
+[tool.setuptools.packages.find]
+include = ["mm_ragbench*"]
