@@ -1,7 +1,6 @@
 # MM-RAGBench
 
 [![PyPI](https://img.shields.io/badge/PyPI-mm--ragbench-blue.svg)](https://pypi.org/project/mm-ragbench/)
-[![Dataset](https://img.shields.io/badge/🤗-Dataset-yellow.svg)](https://huggingface.co/datasets/EmmanuelleB985/mm-ragbench)
 [![License](https://img.shields.io/badge/license-Apache%202.0-green.svg)](LICENSE)
 [![mmeval-vrag](https://img.shields.io/badge/powered%20by-mmeval--vrag-orange.svg)](https://github.com/EmmanuelleB985/mmeval-vrag)
 
