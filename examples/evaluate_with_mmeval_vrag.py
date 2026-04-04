@@ -27,9 +27,6 @@ def example_precomputed():
 
     # Simulate your system generating answers
     for sample in samples:
-        # Your system would normally do:
-        #   retrieved = your_retriever(sample.query_text, sample.query_image)
-        #   answer = your_generator(sample.query_text, retrieved)
         sample.generated_answer = f"Based on the documents, {sample.reference_answer}"
 
     # Evaluate with all 11 mmeval-vrag metrics
@@ -43,7 +40,7 @@ def example_precomputed():
     results = evaluator.evaluate(samples)
 
     # Print aggregate results
-    print(results)  # mean ± std for each metric
+    print(results)  # mean +/- std for each metric
     print()
 
     # Export
@@ -75,7 +72,7 @@ def example_pipeline():
         max_samples=20,
     )
 
-    # Define your retriever (replace with your real implementation)
+    # Define your retriever 
     def my_retriever(query_text=None, query_image=None, top_k=5):
         """Example: return dummy retrieved items."""
         return [
@@ -86,7 +83,7 @@ def example_pipeline():
             )
         ]
 
-    # Define your generator (replace with your real implementation)
+    # Define your generator 
     def my_generator(query_text, contexts):
         """Example: simple concatenation."""
         ctx = " ".join(c.text or "" for c in contexts[:3])
@@ -129,22 +126,21 @@ def example_build():
         llm_model="claude-sonnet-4-20250514",  # or "gpt-4o"
     )
 
-    # Step 1: Collect ~12K image-text documents
+    # Collect ~12K image-text documents
     builder.collect_sources(wit_samples=9000, coco_samples=3000)
 
-    # Step 2: Generate 3 queries per document
+    # Generate 3 queries per document
     builder.generate_queries(max_docs=1000)  # start small, scale up
 
-    # Step 3: Assign hard negatives (same-domain distractors)
+    # Assign hard negatives (same-domain distractors)
     builder.generate_hard_negatives()
 
-    # Step 4: Balance across domains and difficulties
+    # Balance across domains and difficulties
     builder.verify_and_balance(target=3000)
 
-    # Step 5: Export as JSONL (loadable by mmeval-vrag)
+    # Export as JSONL (loadable by mmeval-vrag)
     jsonl_path = builder.export_jsonl()
 
-    # Step 6: Push to HuggingFace Hub
     # builder.push_to_hub("EmmanuelleB985/mm-ragbench", jsonl_path)
 
     # Now evaluate with it

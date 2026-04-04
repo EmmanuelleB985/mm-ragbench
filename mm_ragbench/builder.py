@@ -17,9 +17,9 @@ Usage
 
 Storage modes (pick based on your disk budget)
 ----------------------------------------------
-    "urls"        →  ~10 MB   — text + image URLs only, no local images
-    "thumbnails"  →  ~300 MB  — 224px JPEG thumbnails stored locally
-    "full"        →  ~50 GB   — original-resolution images stored locally
+    "urls"       ->  ~10 MB   — text + image URLs only, no local images
+    "thumbnails"  ->  ~300 MB  — 224px JPEG thumbnails stored locally
+    "full"        ->  ~50 GB   — original-resolution images stored locally
 """
 
 from __future__ import annotations
@@ -188,7 +188,7 @@ class MMRAGBenchBuilder:
         self.documents: List[DocumentRecord] = []
         self.queries: List[QueryRecord] = []
 
-        print(f"💾 Storage mode: {storage_mode}  →  {_SIZE_ESTIMATES[storage_mode]}")
+        print(f"Storage mode: {storage_mode}  →  {_SIZE_ESTIMATES[storage_mode]}")
 
     # ── Step 1: Collect sources ───────────────────────────
 
@@ -327,7 +327,7 @@ class MMRAGBenchBuilder:
                 ))
                 coco_count += 1
         except Exception as e:
-            print(f"  ⚠️ COCO loading failed ({e}), continuing with WIT only")
+            print(f"  COCO loading failed ({e}), continuing with WIT only")
 
         # Save document metadata
         meta_path = self.output_dir / "documents.jsonl"
@@ -338,9 +338,9 @@ class MMRAGBenchBuilder:
         # Report actual disk usage
         if save_images and img_dir:
             total_bytes = sum(f.stat().st_size for f in img_dir.iterdir() if f.is_file())
-            print(f"  📁 Image folder: {total_bytes / 1e6:.0f} MB ({len(list(img_dir.iterdir()))} files)")
+            print(f"  Image folder: {total_bytes / 1e6:.0f} MB ({len(list(img_dir.iterdir()))} files)")
 
-        print(f"✅ Total documents: {len(self.documents)} → {meta_path}")
+        print(f"Total documents: {len(self.documents)} → {meta_path}")
 
     def _make_thumbnail(self, image) -> "Image":
         """Resize keeping aspect ratio so longest edge = THUMB_SIZE."""
@@ -406,7 +406,7 @@ class MMRAGBenchBuilder:
 
         Uses domain overlap + random selection within the same domain.
         """
-        print("🎯 Generating hard negatives...")
+        print("Generating hard negatives...")
         docs_by_domain: Dict[str, List[str]] = {}
         for doc in self.documents:
             docs_by_domain.setdefault(doc.domain, []).append(doc.doc_id)
@@ -429,7 +429,7 @@ class MMRAGBenchBuilder:
 
     def verify_and_balance(self, target: int = 3000):
         """Quality check and balance across domains / difficulties."""
-        print("⚖️ Balancing dataset...")
+        print("Balancing dataset...")
 
         # Remove queries with empty answers or queries
         self.queries = [q for q in self.queries if q.query.strip() and q.gold_answer.strip()]
@@ -510,7 +510,7 @@ class MMRAGBenchBuilder:
                 }
                 f.write(json.dumps(record, ensure_ascii=False) + "\n")
 
-        print(f"✅ Exported {len(self.queries)} queries → {out_path}")
+        print(f"Exported {len(self.queries)} queries → {out_path}")
         return str(out_path)
 
     # ── Step 6: Push to HuggingFace Hub ───────────────────
@@ -543,8 +543,8 @@ class MMRAGBenchBuilder:
         api.create_repo(repo_id, repo_type="dataset", exist_ok=True)
         ds_dict.push_to_hub(repo_id, private=False)
 
-        print(f"🚀 Pushed to https://huggingface.co/datasets/{repo_id}")
-        print(f"   test: {len(test_records)} | dev: {len(dev_records)}")
+        print(f" Pushed to https://huggingface.co/datasets/{repo_id}")
+        print(f"  test: {len(test_records)} | dev: {len(dev_records)}")
 
     # ── LLM helper ────────────────────────────────────────
 
@@ -580,5 +580,5 @@ class MMRAGBenchBuilder:
             clean = text.strip().replace("```json", "").replace("```", "").strip()
             return json.loads(clean)
         except Exception as e:
-            print(f"  ⚠️ LLM call failed: {e}")
+            print(f" LLM call failed: {e}")
             return None
