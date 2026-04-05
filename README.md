@@ -4,11 +4,11 @@
 [![License](https://img.shields.io/badge/license-Apache%202.0-green.svg)](LICENSE)
 [![mmeval-vrag](https://img.shields.io/badge/powered%20by-mmeval--vrag-orange.svg)](https://github.com/EmmanuelleB985/mmeval-vrag)
 
-**MM-RAGBench** is a benchmark dataset for evaluating **multimodal** Retrieval-Augmented Generation systems. It is built as a native companion to [mmeval-vrag](https://github.com/EmmanuelleB985/mmeval-vrag) — install, load, and evaluate in 5 lines.
+**MM-RAGBench** is a benchmark dataset for evaluating **multimodal** Retrieval-Augmented Generation systems. It is built as a native companion to [mmeval-vrag](https://github.com/EmmanuelleB985/mmeval-vrag). Install, load, and evaluate in 5 lines.
 
 ## The Problem
 
-Existing RAG benchmarks (RAGBench, ViDoRe, NoMIRACL) evaluate text-only retrieval and generation. Real-world RAG systems retrieve **images alongside text** — medical scans with clinical notes, product photos with descriptions, diagrams with documentation. None of the existing benchmarks test whether a system can reason across both modalities and avoid hallucinating visual details.
+Existing RAG benchmarks (RAGBench, ViDoRe, NoMIRACL) evaluate text-only retrieval and generation. Real-world RAG systems retrieve **images alongside text**: medical scans with clinical notes, product photos with descriptions, diagrams with documentation. None of the existing benchmarks test whether a system can reason across both modalities and avoid hallucinating visual details.
 
 ## What MM-RAGBench Provides
 
@@ -101,15 +101,15 @@ All 11 metrics from mmeval-vrag are supported:
 Each sample maps to mmeval-vrag types:
 
 ```
-MM-RAGBench field          → mmeval-vrag type
+MM-RAGBench field          -> mmeval-vrag type
 ─────────────────────────────────────────────
-query / query_image        → EvalSample.query_text / query_image
-gold_doc_texts/images      → EvalSample.retrieved (List[RetrievedItem])
-gold_answer                → EvalSample.reference_answer
-domain, difficulty, ...    → EvalSample.metadata
-hallucination_traps        → EvalSample.metadata["hallucination_traps"]
-faithfulness_criteria      → EvalSample.metadata["faithfulness_criteria"]
-gold_doc_ids               → QueryItem.relevant_ids (for EvalPipeline)
+query / query_image        -> EvalSample.query_text / query_image
+gold_doc_texts/images      -> EvalSample.retrieved (List[RetrievedItem])
+gold_answer                -> EvalSample.reference_answer
+domain, difficulty, ...    -> EvalSample.metadata
+hallucination_traps        -> EvalSample.metadata["hallucination_traps"]
+faithfulness_criteria      -> EvalSample.metadata["faithfulness_criteria"]
+gold_doc_ids               -> QueryItem.relevant_ids (for EvalPipeline)
 ```
 
 ### Annotation Fields
@@ -220,4 +220,4 @@ Submit by opening a PR with your `results.json` (exported via `results.to_json()
 
 ## License
 
-Code: Apache 2.0 · Dataset: CC-BY 4.0 · Source images: per-sample (all CC-BY or CC-BY-SA)
+Code: Apache 2.0 . Dataset: CC-BY 4.0 . Source images: per-sample (all CC-BY or CC-BY-SA)
